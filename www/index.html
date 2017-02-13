@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width,user-scalable=no"/>
+  <title>FlappyBird</title>
+  <style>
+   @font-face {
+    font-family: 'flappyFont';
+    src: url(fonts/font.TTF);
+   }
+  </style>
+</head>
+<body>
+<script type="text/javascript" src="point.js"></script>
+<script type="text/javascript" src="init.js"></script>
+<script type="text/javascript" src="background.js"></script>
+<script type="text/javascript" src="bird.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript" src="block.js"></script>
+<script type="text/javascript" src="game.js"></script>
+<script type="text/javascript">
+
+  game.newLoopFromClassObject('menu', new Menu());
+  game.newLoopFromClassObject('game', new Game());
+  game.newLoop('Game Over', function() {
+    
+    var restartButton = game.newTextObject({
+      text: 'Restart',
+      size: 30,
+      positionC: point(width / 2, height / 3),
+      color: "#FFFFFF",
+      font: 'flappyFont',
+      align: 'center'
+    });
+    
+    drawBG();
+    drawGR();
+    
+    brush.drawText({
+      text: "Your score: " + score,
+      size: 50,
+      x: width / 2,
+      y: height / 20,
+      color: "#FFFFFF",
+      font: 'flappyFont',
+      align: 'center'
+    });
+    
+    restartButton.draw();
+    
+    if (touch.isPeekObject(restartButton)) {
+      return game.setLoop('game');
+    }
+  });
+  game.startLoop('menu');
+
+</script>
+</body>
+</html>
